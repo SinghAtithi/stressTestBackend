@@ -1,0 +1,7 @@
+WA on the following test:
+11 14
+2 11 12 11 7 4 14 13 12 8 11 
+Your answer is:
+112
+Correct answer is:
+114
