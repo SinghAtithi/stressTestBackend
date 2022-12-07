@@ -1,18 +1,21 @@
-set -e
-g++ correctCode.cpp -o code
-g++ generator.cpp -o gen
-g++ wrongCode.cpp -o brute
+g++ stressZone/correctCode.cpp -o stressZone/code
+g++ stressZone/generator.cpp -o stressZone/gen
+g++ stressZone/wrongCode.cpp -o stressZone/brute
+
+# Run the tests
 for((i = 1;i<2000 ; ++i)); do
-    ./gen $i > input_file
-    ./code < input_file > myAnswer
-    ./brute < input_file > correctAnswer
-    cat input_file
-    diff -Z myAnswer correctAnswer > /dev/null || break
+    ./stressZone/gen $i > stressZone/input_file
+    ./stressZone/code < stressZone/input_file > stressZone/myAnswer
+    ./stressZone/brute < stressZone/input_file > stressZone/correctAnswer
+    cat stressZone/input_file
+    diff -Z stressZone/myAnswer stressZone/correctAnswer > /dev/null || break
     echo "Passed test: "  $i
 done
-echo "WA on the following test:" > finalOutput.txt
-cat input_file >> finalOutput.txt
-echo "Your answer is:" >> finalOutput.txt
-cat myAnswer >> finalOutput.txt
-echo "Correct answer is:" >> finalOutput.txt
-cat correctAnswer >> finalOutput.txt
+
+# Generate the final output file
+echo "WA on the following test:" > stressZone/finalOutput.txt
+cat stressZone/input_file >> stressZone/finalOutput.txt
+echo "Your answer is:" >> stressZone/finalOutput.txt
+cat stressZone/myAnswer >> stressZone/finalOutput.txt
+echo "Correct answer is:" >> stressZone/finalOutput.txt
+cat stressZone/correctAnswer >> stressZone/finalOutput.txt

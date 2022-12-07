@@ -1,8 +1,9 @@
-const axios = require("axios");
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 var bodyParser = require("body-parser");
+const { stressTest } = require("./stressTest"); // Import the stressTest function
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
 const PORT = process.env.PORT || 6999;
@@ -33,45 +34,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/stressTest", (req, res) => {
-	console.log(req.body);
 	res.send("Got the code!");
 });
 
-app.post("/stressTest", async (req, res) => {
-        var data = req.body;
-	fs.writeFileSync("correctCode.cpp", data.correctCode);
-	fs.writeFileSync("wrongCode.cpp", data.wrongCode);
-        console.log("Data Recived", data)
-	fs.readFile( 
-		`CodeGen/${data.quesID}.cpp`,
-		"utf8",
-		(err, generatorCode) => {
-			fs.writeFileSync("generator.cpp", generatorCode);
-		}
-	);
+app.post("/stressTest", stressTest); // Use the imported stressTest function as the route handler
 
-	var exec = require("child_process").exec;
-
-	exec("bash script.sh", function (error, stdout, stderr) {});
-        
-        fs.writeFileSync("finalOutput.txt", "OOPS!! Could not find any test case, try again!");
-	await sleep(10000);
-
-	await fs.readFile("finalOutput.txt", "utf8", (err, finalRes) => {
-		res.send(finalRes);
-        });
+app.post("/generateCode", (req, res) => {
+	res.send("OKAYYYY");
+	let fileName = req.body.quesID;
+	let code = req.body.code;
+	console.log(fileName);
+	fs.writeFileSync(`CodeGen/${fileName}.cpp`, code);
 });
- 
-app.post('/generateCode', (req, res) => {
-        res.send("OKAYYYY")
-        let fileName = req.body.quesID;
-        let code = req.body.code;
-        console.log(fileName)
-        fs.writeFileSync(`CodeGen/${fileName}.cpp`, code);
-})
-
-function sleep(ms) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, ms);
-	});
-}

@@ -1,0 +1,8 @@
+WA on the following test:
+1
+10
+0 3 -5 5 9 3 -10 7 -7 7 
+Your answer is:
+3
+Correct answer is:
+2
