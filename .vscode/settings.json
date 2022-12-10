@@ -1,5 +1,7 @@
 {
 	"files.associations": {
 		"iostream": "cpp"
-	}
+	},
+	// window size 1.5
+	// "window.zoomLevel": 1.2,
 }

@@ -24,25 +24,44 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-
 app.listen(PORT, () => {
-	console.log("Running on :", PORT);
+	try {
+		console.log("Running on :", PORT);
+	} catch (error) {
+		// handle the error here
+		console.error("An error occurred: " + error.message);
+	}
 });
 
 app.get("/", (req, res) => {
-	res.send("Hellow World");
+	try {
+		res.send("Hellow World");
+	} catch (error) {
+		// handle the error here
+		res.send("An error occurred: " + error.message);
+	}
 });
 
 app.get("/stressTest", (req, res) => {
-	res.send("Got the code!");
+	try {
+		res.send("Got the code!");
+	} catch (error) {
+		// handle the error here
+		res.send("An error occurred: " + error.message);
+	}
 });
 
 app.post("/stressTest", stressTest); // Use the imported stressTest function as the route handler
 
 app.post("/generateCode", (req, res) => {
-	res.send("OKAYYYY");
-	let fileName = req.body.quesID;
-	let code = req.body.code;
-	console.log(fileName);
-	fs.writeFileSync(`CodeGen/${fileName}.cpp`, code);
+	try {
+		res.send("OKAYYYY");
+		let fileName = req.body.quesID;
+		let code = req.body.code;
+		console.log(fileName);
+		fs.writeFileSync(`CodeGen/${fileName}.cpp`, code);
+	} catch (error) {
+		// handle the error here
+		res.send("An error occurred: " + error.message);
+	}
 });
