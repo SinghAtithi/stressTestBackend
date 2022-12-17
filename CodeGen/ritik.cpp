@@ -24,7 +24,7 @@
 #include <string>
 #include <utility>
 #include <unordered_map>
-#include <chrono>
+#include<chrono>
 #include <vector>
 #define int int64_t
 #define vi vector<int>
@@ -39,12 +39,8 @@
 #define pii pair<int, int>
 #define mp make_pair
 #define all(x) (x).begin(), (x).end()
-#define vin(x, v)         \
-        for (auto &x : v) \
-                cin >> x;
-#define vout(x, v)       \
-        for (auto x : v) \
-                cout << x << " ";
+#define vin(x, v)                 for (auto &x : v)                 cin >> x;
+#define vout(x, v)               for (auto x : v)                 cout << x << " ";
 #define MEM(a, b) memset(a, (b), sizeof(a))
 #define loop(i, j, k) for (int i = j; i < k; i += 1)
 #define rloop(i, j, k) for (int i = j; i >= k; i -= 1)
@@ -57,10 +53,7 @@
 #define MOD 1000000007
 #define MODD 998244353
 // cout <<setprecision(15)
-#define NEED_FOR_SPEED_MOST_WANTED        \
-        ios_base::sync_with_stdio(false); \
-        cin.tie(NULL);                    \
-        cout.tie(NULL)
+#define NEED_FOR_SPEED_MOST_WANTED                ios_base::sync_with_stdio(false);         cin.tie(NULL);                            cout.tie(NULL)
 using namespace std;
 
 /*-----------------------------------D-E-B-U-G-----------------------------------------------*/
@@ -69,8 +62,7 @@ using namespace std;
 
 void solve()
 {
-        int n = rand() % INF + 1;
-        cout << n;
+        int n = rand() % 100 + 1;
 }
 
 signed main()
@@ -79,10 +71,10 @@ signed main()
         // cout << setprecision(15);
         int t = 1;
         // cin >> t;
-        using namespace std::chrono;
+       using namespace std::chrono;
         uint64_t ms = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
         srand(ms);
-        cout << t << endl;
+        // cout << t << endl;
         while (t--)
         {
                 solve();

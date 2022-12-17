@@ -1,8 +1,7 @@
 WA on the following test:
 1
-12
-5 -1 0 -8 2 9 -9 9 -10 4 1 5 
+31379
 Your answer is:
-3
+13479
 Correct answer is:
-2
+13489

@@ -21,76 +21,93 @@
 using namespace std;
 
 #ifdef LOCAL
-	#define eprintf(...) {fprintf(stderr, __VA_ARGS__);fflush(stderr);}
+#define eprintf(...)                          \
+        {                                     \
+                fprintf(stderr, __VA_ARGS__); \
+                fflush(stderr);               \
+        }
 #else
-	#define eprintf(...) 42
+#define eprintf(...) 42
 #endif
 
 using ll = long long;
 using ld = long double;
 using uint = unsigned int;
 using ull = unsigned long long;
-template<typename T>
+template <typename T>
 using pair2 = pair<T, T>;
 using pii = pair<int, int>;
 using pli = pair<ll, int>;
 using pll = pair<ll, ll>;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-ll myRand(ll B) {
-	return (ull)rng() % B;
+ll myRand(ll B)
+{
+        return (ull)rng() % B;
 }
 
 #define pb push_back
 #define mp make_pair
-#define all(x) (x).begin(),(x).end()
+#define all(x) (x).begin(), (x).end()
 #define fi first
 #define se second
 
 clock_t startTime;
-double getCurrentTime() {
-	return (double)(clock() - startTime) / CLOCKS_PER_SEC;
+double getCurrentTime()
+{
+        return (double)(clock() - startTime) / CLOCKS_PER_SEC;
 }
 
-const int N = 200200;
-int n;
-ll a[N], b[N];
+const int N = (int)1e6 + 7;
+int n, m;
+char s[N];
+bool used[N];
+char ans[N];
 
-void solve() {
-	b[0] = 0;
-	scanf("%d", &n);
-	for (int i = 0; i < n; i++) {
-		scanf("%lld", &a[i]);
-		b[i + 1] = b[i] + a[i];
-	}
-	map<ll, int> mapchik;
-	int p = 0;
-	int ans = 0;
-	while(p < n && a[p] != 0) {
-		p++;
-		if (b[p] == 0) ans++;
-	}
-	while(p < n) {
-		mapchik.clear();
-		int q = p + 1;
-		while(q < n && a[q] != 0) q++;
-		for (int i = p + 1; i <= q; i++)
-			mapchik[b[i]]++;
-		int mx = 0;
-		for (auto t : mapchik) mx = max(mx, t.second);
-		ans += mx;
-		p = q;
-	}
-	printf("%d\n", ans);
+void solve()
+{
+        scanf("%s", s);
+        n = strlen(s);
+        m = 0;
+        int p = -1;
+        for (int i = 0; i < n; i++)
+                used[i] = 0;
+        for (char c = '0'; c <= '9'; c++)
+        {
+                for (int i = 0; i < p; i++)
+                        if (!used[i] && s[i] + 1 == c)
+                        {
+                                used[i] = 1;
+                                ans[m++] = c;
+                        }
+                for (int i = p + 1; i < n; i++)
+                {
+                        if (used[i] || s[i] != c)
+                                continue;
+                        used[i] = 1;
+                        ans[m++] = s[i];
+                        p = i;
+                }
+        }
+        for (int i = 0; i < n; i++)
+                if (!used[i])
+                {
+                        assert(s[i] == '9');
+                        ans[m++] = '9';
+                }
+        ans[m] = '\0';
+        assert(m == n);
+        printf("%s\n", ans);
 }
 
 int main()
 {
-	startTime = clock();
-//	freopen("input.txt", "r", stdin);
-//	freopen("output.txt", "w", stdout);
-	int t;
-	scanf("%d", &t);
-	while(t--) solve();
+        startTime = clock();
+        //	freopen("input.txt", "r", stdin);
+        //	freopen("output.txt", "w", stdout);
+        int t;
+        scanf("%d", &t);
+        while (t--)
+                solve();
 
-	return 0;
+        return 0;
 }

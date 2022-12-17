@@ -163,7 +163,8 @@ signed main()
 {
         NEED_FOR_SPEED_MOST_WANTED;
         // cout << setprecision(15);
-        int t = 1;
+        int t = 10;
+        cout << t << "\n";
         // cin >> t;
         srand(time(0));
         while (t--)

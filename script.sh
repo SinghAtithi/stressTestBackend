@@ -3,7 +3,7 @@ g++ stressZone/generator.cpp -o stressZone/gen
 g++ stressZone/wrongCode.cpp -o stressZone/brute
 
 # Run the tests
-for((i = 1;i<2000 ; ++i)); do
+for((i = 1;i<2000; ++i)); do
     ./stressZone/gen $i > stressZone/input_file
     ./stressZone/code < stressZone/input_file > stressZone/myAnswer
     ./stressZone/brute < stressZone/input_file > stressZone/correctAnswer
