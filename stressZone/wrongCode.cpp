@@ -1,117 +1,170 @@
-#include <iostream>
-#include <cstdio>
-#include <cstdlib>
+/*
+    कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।
+    मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥
+
+    Karmanye vadhikaraste Ma Phaleshu Kadachana,
+    Ma Karmaphalaheturbhurma Te Sangostvakarmani,
+
+    The meaning of the verse is :—
+    You have the right to work only but never to its fruits.
+    Let not the fruits of action be your motive, nor let your attachment be to
+   inaction
+*/
+
+#include <math.h>
 #include <algorithm>
-#include <cmath>
-#include <vector>
-#include <set>
-#include <map>
-#include <unordered_set>
-#include <unordered_map>
-#include <queue>
-#include <ctime>
-#include <cassert>
-#include <complex>
-#include <string>
+#include <climits>
+#include <iomanip>
+#include <iostream>
 #include <cstring>
-#include <chrono>
-#include <random>
-#include <bitset>
-#include <array>
-using namespace std;
-
-#ifdef LOCAL
-#define eprintf(...)                          \
-        {                                     \
-                fprintf(stderr, __VA_ARGS__); \
-                fflush(stderr);               \
-        }
-#else
-#define eprintf(...) 42
-#endif
-
-using ll = long long;
-using ld = long double;
-using uint = unsigned int;
-using ull = unsigned long long;
-template <typename T>
-using pair2 = pair<T, T>;
-using pii = pair<int, int>;
-using pli = pair<ll, int>;
-using pll = pair<ll, ll>;
-mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-ll myRand(ll B)
-{
-        return (ull)rng() % B;
-}
-
-#define pb push_back
+#include <list>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <utility>
+#include <unordered_map>
+#include <vector>
+#define int int64_t
+#define vi vector<int>
+#define vii vector<pair<int, int>>
+#define vs vector<string>
+#define vc vector<char>
+#define vb vector<bool>
+#define pb emplace_back
+#define vvi vector<vector<int>>
+#define mii map<int, int>
+#define mci map<char, int>
+#define pii pair<int, int>
 #define mp make_pair
 #define all(x) (x).begin(), (x).end()
-#define fi first
-#define se second
+#define vin(x, v)       \
+      for (auto &x : v) \
+            cin >> x;
+#define vout(x, v)     \
+      for (auto x : v) \
+            cout << x << " ";
+#define MEM(a, b) memset(a, (b), sizeof(a))
+#define loop(i, j, k) for (int i = j; i < k; i += 1)
+#define rloop(i, j, k) for (int i = j; i >= k; i -= 1)
+#define rep(i, j) loop(i, 0, j)
+#define rrep(i, j) rloop(i, j, 0)
+#define MP make_pair
+#define endl "\n"
+#define INF (int)1e18
+#define EPS 1e-18
+#define PI 3.1415926535897932384626433832795
+#define MOD 1000000007
+#define MODD 998244353
+// cout <<setprecision(15)
+#define NEED_FOR_SPEED_MOST_WANTED      \
+      ios_base::sync_with_stdio(false); \
+      cin.tie(NULL);                    \
+      cout.tie(NULL)
+using namespace std;
 
-clock_t startTime;
-double getCurrentTime()
+/*-----------------------------------D-E-B-U-G-----------------------------------------------*/
+#ifndef ONLINE_JUDGE
+#define deb(x)           \
+      cerr << #x << " "; \
+      _print(x);         \
+      cerr << endl;
+#else
+#define deb(x)
+#endif
+
+void _print(int t)
 {
-        return (double)(clock() - startTime) / CLOCKS_PER_SEC;
+      cerr << t;
 }
+void _print(string t) { cerr << t; }
+void _print(char t) { cerr << t; }
+void _print(long double t) { cerr << t; }
+void _print(double t) { cerr << t; }
+void _print(unsigned long long t) { cerr << t; }
 
-const int N = (int)1e6 + 7;
-int n, m;
-char s[N];
-bool used[N];
-char ans[N];
+template <class T, class V>
+void _print(pair<T, V> p);
+template <class T>
+void _print(vector<T> v);
+template <class T>
+void _print(set<T> v);
+template <class T, class V>
+void _print(map<T, V> v);
+template <class T>
+void _print(multiset<T> v);
+template <class T, class V>
+void _print(pair<T, V> p)
+{
+      cerr << "{";
+      _print(p.first);
+      cerr << ",";
+      _print(p.second);
+      cerr << "}";
+}
+template <class T>
+void _print(vector<T> v)
+{
+      cerr << "[ ";
+      for (T i : v)
+      {
+            _print(i);
+            cerr << " ";
+      }
+      cerr << "]";
+}
+template <class T>
+void _print(set<T> v)
+{
+      cerr << "[ ";
+      for (T i : v)
+      {
+            _print(i);
+            cerr << " ";
+      }
+      cerr << "]";
+}
+template <class T>
+void _print(multiset<T> v)
+{
+      cerr << "[ ";
+      for (T i : v)
+      {
+            _print(i);
+            cerr << " ";
+      }
+      cerr << "]";
+}
+template <class T, class V>
+void _print(map<T, V> v)
+{
+      cerr << "[ ";
+      for (auto i : v)
+      {
+            _print(i);
+            cerr << " ";
+      }
+      cerr << "]";
+}
+/*-----------------------------------D-E-B-U-G-----------------------------------------------*/
 
 void solve()
 {
-        scanf("%s", s);
-        n = strlen(s);
-        if(n<3){
-                cout << 0;
-                return;
-        }
-        m = 0;
-        int p = -1;
-        for (int i = 0; i < n; i++)
-                used[i] = 0;
-        for (char c = '0'; c <= '9'; c++)
-        {
-                for (int i = 0; i < p; i++)
-                        if (!used[i] && s[i] + 1 == c)
-                        {
-                                used[i] = 1;
-                                ans[m++] = c;
-                        }
-                for (int i = p + 1; i < n; i++)
-                {
-                        if (used[i] || s[i] != c)
-                                continue;
-                        used[i] = 1;
-                        ans[m++] = s[i];
-                        p = i;
-                }
-        }
-        for (int i = 0; i < n; i++)
-                if (!used[i])
-                {
-                        assert(s[i] == '9');
-                        ans[m++] = '9';
-                }
-        ans[m] = '\0';
-        assert(m == n);
-        printf("%s\n", ans);
+    int n;cin>>n;
+    if(n<50)cout<<n;
+    else cout<<MOD;
 }
 
-int main()
+signed main()
 {
-        startTime = clock();
-        //	freopen("input.txt", "r", stdin);
-        //	freopen("output.txt", "w", stdout);
-        int t;
-        scanf("%d", &t);
-        while (t--)
-                solve();
-
-        return 0;
+      NEED_FOR_SPEED_MOST_WANTED;
+      // cout << setprecision(15);
+      int t = 1;
+      // cin >> t; 
+      while (t--)
+      {
+            solve();
+            cout << endl;
+      }
 }

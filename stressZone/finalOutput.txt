@@ -1,7 +1,6 @@
 WA on the following test:
-1
-31379
+82
 Your answer is:
-13479
+82
 Correct answer is:
-13489
+1000000007
